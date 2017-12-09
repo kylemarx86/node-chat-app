@@ -1,19 +1,30 @@
 const path = require('path');
+const http = require('http');
 const express = require('express');
+const socketIO = require('socket.io');
 
 const publicPath = path.join(__dirname, '../public');
-
-// create brand new express application
-// configure express static middleware like previously to serve up public folder
-// call app .listen on 3000
-//      console.log message 
-// start up and go to local host 3000 to check
-var app = express();
 const port = process.env.PORT || 3000;
+var app = express();
+// var server = http.createServer((req, res) => {
+
+// });
+var server = http.createServer(app);
+var io = socketIO(server);      // io is now the websocket server
 
 // express static middleware
 app.use(express.static(publicPath));
 
-app.listen(port, () => {
+
+io.on('connection', (socket) => {
+    console.log('new user connected');
+    
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+    })
+});
+
+
+server.listen(port, () => {
     console.log(`Started on port ${port}`);
 });
