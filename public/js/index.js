@@ -2,11 +2,6 @@ var socket = io();   //initiates request. makes request from client to server to
 
 socket .on('connect', function() {
     console.log('connected to server');
-
-    socket.emit('createMessage' , {
-        from: 'Kyle',
-        text: 'this is another message to be sent'
-    });
 });
 
 socket.on('newMessage', function(message) {
