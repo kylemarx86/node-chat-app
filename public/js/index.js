@@ -5,18 +5,20 @@ socket .on('connect', function() {
     console.log('connected to server');
 });
 
-socket.on('newMessage', function(message) {
-    console.log('Received new message', message);
-    var $li = $('<li>').text(`${message.from}: ${message.text}`);
-    $('#messages').append($li);
-});
-
 socket.on('disconnect', function() {
     console.log('Disconnected from server');
 });
 
+socket.on('newMessage', function(message) {
+    console.log('Received new message', message);
+    var formattedTime = moment(message.createAt).format('h:mm a');
+    var $li = $('<li>').text(`${message.from} ${formattedTime}: ${message.text}`);
+    $('#messages').append($li);
+});
+
 socket.on('newLocationMessage', function(message){
-    var $li = $('<li>').text(`${message.from}: `);
+    var formattedTime = moment(message.createAt).format('h:mm a');
+    var $li = $('<li>').text(`${message.from} ${formattedTime}: `);
     var $a = $('<a>').attr({'target':'_blank', 'href':`${message.url}`}).text('My current location');
     $li.append($a);
     $('#messages').append($li);

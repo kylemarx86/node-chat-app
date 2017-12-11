@@ -1,3 +1,5 @@
+var moment = require('moment');
+
 /**
  * compiles an object out of the from and text parameters and adds a created at timestamp
  * @param {string} from - user the text is from
@@ -8,7 +10,7 @@ var generateMessage = (from, text) => {
     return {
         from,
         text,
-        createdAt: new Date().getTime()
+        createdAt: moment().valueOf()
     };
 };
 
@@ -23,7 +25,7 @@ var generateLocationMessage = (from, lat, long) => {
     return {
         from,
         url: `https://www.google.com/maps?q=${lat},${long}`,
-        createdAt: new Date().getTime()
+        createdAt: moment().valueOf()
     }
 };
 
