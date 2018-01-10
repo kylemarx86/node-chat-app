@@ -63,14 +63,17 @@ class Rooms {
         return room;
     }
 
+    // sorts the rooms with highest userCount first
+    sortRoomsByUserCount(){
+        this.rooms.sort(function(a, b){
+            return b.userCount - a.userCount;
+        });
+        return this.rooms;
+    }
     // getRoomList() {
     //     return this.rooms;
     // }
 
-    // findMostActiveRooms() {
-    //     // for each active room find the number of users in each
-    //     // sort these from highest to lowest
-    // }
 }
 
 module.exports = {Rooms};

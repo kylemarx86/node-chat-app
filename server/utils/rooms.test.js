@@ -12,6 +12,9 @@ describe('Rooms', () => {
         }, {
             name: 'room 2',
             userCount: 1
+        }, {
+            name: 'room 3',
+            userCount: 2
         }];
     });
 
@@ -20,14 +23,14 @@ describe('Rooms', () => {
         var roomsRes = rooms.addRoom(roomName);
         
         expect(roomsRes.name).toEqual(roomName);
-        expect(rooms.rooms.length).toBe(3);
+        expect(rooms.rooms.length).toBe(4);
     });
     it('should not add a room if room already exists', () => {
         var roomName = rooms.rooms[1].name;
         var roomsRes = rooms.addRoom(roomName);
 
         expect(roomsRes).toNotExist();
-        expect(rooms.rooms.length).toBe(2);
+        expect(rooms.rooms.length).toBe(3);
     });
 
     it('should increase user count in a room that exists', () => {
@@ -40,8 +43,6 @@ describe('Rooms', () => {
     it('should add a room if room name does not exist', () => {
         var roomName = 'Cactus Cooler Talk';
         var roomsRes = rooms.addUserToRoom(roomName);
-
-        // console.log('roomsRes', roomsRes)
 
         expect(roomsRes.name).toEqual(roomName);
         expect(roomsRes.userCount).toBe(1);
@@ -73,34 +74,11 @@ describe('Rooms', () => {
         expect(rooms.rooms).toNotContain(roomsRes);
     });
 
-    // it('should remove a room', () => {
-    //     var roomName = rooms.rooms[0]['name'];
-    //     var roomsRes = rooms.removeRoom(roomName);
-
-    //     // expect returned objects name to be same as name that was passed in
-    //     expect(roomsRes.name).toBe(roomName);
-    //     // expect the list to be one shorter
-    //     expect(rooms.rooms.length).toBe(1);
-    // });
-    // it('should not remove a room that does not exist', () => {
-    //     var roomName = 'chat room 3';
-    //     var roomRes = rooms.removeRoom(roomName);
+    it('should sort the rooms by userCount', () => {
+        var roomsRes = rooms.sortRoomsByUserCount();
         
-    //     // expect list of rooms to be same length
-    //     expect(rooms.rooms.length).toBe(2);
-    //     // expect response object to not exist
-    //     expect(roomRes).toNotExist();
-
-    // });
-    // it('should not remove a room that contains multiple users', () => {
-        
-    // });
-    
-    // it('should ', () => {
-        
-    // });
-
-    // it('should ', () => {
-        
-    // });
+        expect(roomsRes[0].name).toBe('room 1');
+        expect(roomsRes[1].name).toBe('room 3');
+        expect(roomsRes[2].name).toBe('room 2');
+    });
 });
