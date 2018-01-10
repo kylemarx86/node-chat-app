@@ -1,8 +1,5 @@
 'use strict';
 
-const fs = require('fs');
-
-
 const path = require('path');
 const http = require('http');
 const express = require('express');
@@ -29,6 +26,17 @@ app.use(express.static(publicPath));
 
 io.on('connection', (socket) => {
     console.log('new user connected');
+
+    socket.on('joinLobby', (callback) => {
+        socket.join('lobby');
+        
+        // not really an update of rooms list, it's a sending of rooms list, 
+        // i guess it is an update of the rooms list in the DOM
+        socket.emit('updateRoomsList', JSON.stringify(rooms));
+        // emit to individual
+        // want to send back rooms variable
+        callback();
+    });
 
     socket.on('join', (params, callback) => {
         // if( !isRealString(params.name) || !isRealString(params.room)){
@@ -63,21 +71,12 @@ io.on('connection', (socket) => {
 
         rooms.addUserToRoom(params.room);
         
-        fs.writeFile('./public/rooms.json', JSON.stringify(rooms), (err) => {
-            if(err) throw err;
-
-            console.log('file rewritten');
-        });
-        // console.log('rooms: ', rooms);
-
         io.to(params.room).emit('updateUserList', users.getUserList(params.room));
+        // update lobby
+        io.to('lobby').emit('updateRoomsList', JSON.stringify(rooms));
         
         socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app.'));
         socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `${params.name} has joined.`));
-        
-        // var adapter = io.sockets.adapter;
-        // console.log('adapter: ', adapter);
-        // rooms.updateRoomList(adapter.rooms, adapter.sids);
 
         callback();
     });
@@ -104,15 +103,10 @@ io.on('connection', (socket) => {
 
         if(user) {
             var room = rooms.removeUserFromRoom(user.room);
-            // console.log('rooms: ', rooms);
-            fs.writeFile('./public/rooms.json', JSON.stringify(rooms), (err) => {
-                if(err) throw err;
-    
-                console.log('file rewritten');
-            });
 
             io.to(user.room).emit('updateUserList', users.getUserList(user.room));
             io.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} has left.`));
+            io.to('lobby').emit('updateRoomsList', JSON.stringify(rooms));
         }
     });
 });
