@@ -30,11 +30,8 @@ io.on('connection', (socket) => {
     socket.on('joinLobby', (callback) => {
         socket.join('lobby');
         
-        // not really an update of rooms list, it's a sending of rooms list, 
-        // i guess it is an update of the rooms list in the DOM
+        // emit rooms to user in lobby
         socket.emit('updateRoomsList', JSON.stringify(rooms));
-        // emit to individual
-        // want to send back rooms variable
         callback();
     });
 
@@ -68,11 +65,11 @@ io.on('connection', (socket) => {
 
         users.removeUser(socket.id);
         users.addUser(socket.id, params.name, params.room);
-
-        rooms.addUserToRoom(params.room);
         
         io.to(params.room).emit('updateUserList', users.getUserList(params.room));
-        // update lobby
+        
+        // update rooms and lobby
+        rooms.addUserToRoom(params.room);
         io.to('lobby').emit('updateRoomsList', JSON.stringify(rooms));
         
         socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app.'));
@@ -103,10 +100,10 @@ io.on('connection', (socket) => {
 
         if(user) {
             var room = rooms.removeUserFromRoom(user.room);
+            io.to('lobby').emit('updateRoomsList', JSON.stringify(rooms));
 
             io.to(user.room).emit('updateUserList', users.getUserList(user.room));
             io.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} has left.`));
-            io.to('lobby').emit('updateRoomsList', JSON.stringify(rooms));
         }
     });
 });

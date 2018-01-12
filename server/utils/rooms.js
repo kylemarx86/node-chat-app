@@ -14,8 +14,9 @@ class Rooms {
                 userCount: 1
             }
             this.rooms.push(room);
+            this.sortRoomsByUserCount();
         }
-
+        
         return room;
     }
 
@@ -26,11 +27,11 @@ class Rooms {
         if(roomIndex !== -1){
             // found room index
             this.rooms[roomIndex].userCount++;
+            this.sortRoomsByUserCount();
             return this.rooms[roomIndex];
         }else{
             // did not find room index, create room
             return this.addRoom(name);
-            // add room will return a room object
         }
     }
 
@@ -42,14 +43,15 @@ class Rooms {
             // found room index and decrement userCount by one
             this.rooms[roomIndex].userCount--;
             if(this.rooms[roomIndex].userCount === 0){
-                return this.removeRoom(name);
                 // removeRoom returns a room object
+                return this.removeRoom(name);
             }
-            return this.rooms[roomIndex];
+            this.sortRoomsByUserCount();
             // returns a room object
+            return this.rooms[roomIndex];
         }
+        // returns the name
         return name;
-        // returns a name
     }
 
     removeRoom(name) {
@@ -59,6 +61,7 @@ class Rooms {
         if(room){
             this.rooms = this.rooms.filter((room) => room.name !== name);
         }
+        this.sortRoomsByUserCount();
 
         return room;
     }
@@ -70,9 +73,6 @@ class Rooms {
         });
         return this.rooms;
     }
-    // getRoomList() {
-    //     return this.rooms;
-    // }
 
 }
 

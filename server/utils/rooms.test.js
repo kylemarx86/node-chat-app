@@ -81,4 +81,32 @@ describe('Rooms', () => {
         expect(roomsRes[1].name).toBe('room 3');
         expect(roomsRes[2].name).toBe('room 2');
     });
+    it('should sort the rooms after users added to rooms', () => {
+        var roomName = 'room 3';
+        var roomsRes = rooms.addUserToRoom(roomName);
+
+        expect(rooms.rooms[0].name).toBe('room 1');
+        expect(rooms.rooms[1].name).toBe('room 3');
+        expect(rooms.rooms[2].name).toBe('room 2');
+
+        roomsRes = rooms.addUserToRoom(roomName);
+        
+        expect(rooms.rooms[0].name).toBe('room 3');
+        expect(rooms.rooms[1].name).toBe('room 1');
+        expect(rooms.rooms[2].name).toBe('room 2');
+    });
+    it('should sort the rooms after users removed from rooms', () => {
+        var roomName = 'room 1';
+        var roomsRes = rooms.removeUserFromRoom(roomName);
+
+        expect(rooms.rooms[0].name).toBe('room 1');
+        expect(rooms.rooms[1].name).toBe('room 3');
+        expect(rooms.rooms[2].name).toBe('room 2');
+
+        roomsRes = rooms.removeUserFromRoom(roomName);
+        
+        expect(rooms.rooms[0].name).toBe('room 3');
+        expect(rooms.rooms[1].name).toBe('room 1');
+        expect(rooms.rooms[2].name).toBe('room 2');
+    });
 });
