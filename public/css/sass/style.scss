@@ -1,0 +1,95 @@
+@import "background";
+@import "chat";
+@import "room-tabs";
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 300;
+    font-size: .95rem;
+}
+
+ul,
+li {
+    list-style-position: inside;
+}
+
+h3 {
+    font-weight: 600;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+button {
+    border: none;
+    background: #265f82;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    transition: background .3s ease;
+    &:hover {
+        border: none;
+        background: #1F4C69;
+        color: white;
+        padding: 10px;
+    }
+    &:disabled {
+        cursor: default;
+        background: #698ea5;
+    }
+}
+
+.centered-form {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+    @include backgroundGradient($rgb1: 39 107 130, $rgb2: 49 84 129);
+    &__form {
+        background: rgba(250, 250, 250, 0.9);
+        border: 1px solid #e1e1e1;
+        border-radius: 5px;
+        padding: 0px 20px;
+        margin: 20px;
+        width: 300px;
+    }
+}
+
+.form-field {
+    margin: 20px 0;
+    >* {
+        width: 100%;
+    }
+    label {
+        display: block;
+        margin-bottom: 7px;
+    }
+    input,
+    select {
+        border: 1px solid #e1e1e1;
+        padding: 10px;
+    }
+}
+
+.message {
+    padding: 10px;
+    &__title {
+        display: flex;
+        margin-bottom: 5px;
+        h4 {
+            font-weight: 600;
+            margin-right: 10px;
+        }
+        span {
+            color: #999;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    * {
+        font-size: 1rem;
+    }
+}

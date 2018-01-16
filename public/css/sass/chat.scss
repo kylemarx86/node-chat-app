@@ -1,0 +1,76 @@
+@import "background";
+.chat {
+    display: flex;
+    &__sidebar {
+        overflow-y: scroll;
+        width: 260px;
+        height: 100vh;
+        @include backgroundGradient($rgb1: 39 107 130, $rgb2: 49 84 129);
+        h3 {
+            color: #e6eaee;
+            margin: 10px 20px;
+            text-align: left;
+        }
+        ul {
+            list-style-type: none;
+        }
+        li {
+            background: #e6eaee;
+            border: 1px solid #e1e1e1;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+        }
+    }
+    &__main {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        width: 100%;
+    }
+    &__messages {
+        flex-grow: 1;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+    &__footer {
+        background: #e6eaee;
+        display: flex;
+        padding: 10px;
+        /*height: 60px;*/
+        flex-shrink: 0;
+        form {
+            flex-grow: 1;
+            display: flex;
+            * {
+                margin-right: 10px;
+            }
+            input {
+                border: none;
+                padding: 10px;
+                flex-grow: 1;
+            }
+        }
+    }
+    &__messages {
+        list-style-type: none;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    .chat {
+        &__sidebar {
+            display: none;
+        }
+        &__footer {
+            flex-direction: column;
+            form {
+                margin-bottom: 10px;
+            }
+            button {
+                margin-right: 0px;
+            }
+        }
+    }
+}

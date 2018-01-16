@@ -45,6 +45,12 @@ io.on('connection', (socket) => {
             return callback('Name and room name are required.');
         }
 
+        // if(params.room)
+        // check to see if both params are defined
+
+        // if only room param exists
+        // if rooms param is undefined then 
+
         // fail join if both room and rooms parameters are empty
         if( !isRealString(params.room) && !isRealString(params.rooms) ){
             return callback('Name and room name are required.');
@@ -55,6 +61,12 @@ io.on('connection', (socket) => {
         if( isRealString(params.rooms) ){
             params.room = params.rooms;
             delete params.rooms;
+            
+
+            // construct a new query string and redirect to new page with amended query string
+            // get base url
+
+            // window.location.replace("http://");
         }
 
 
