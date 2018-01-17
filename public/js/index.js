@@ -67,7 +67,9 @@ function updateRoomList(rooms){
     var $option = $('<option>').attr('value', '').text('Select a created room');
     $roomSelector.append($option);
     for(var i = 0; i < rooms.length; i++){
-        var $option = $('<option>').attr('value', rooms[i].name).text(`${rooms[i].name} - ${rooms[i].userCount} users`);
+        var $option = $('<option>')
+            .attr('value', rooms[i].name)
+            .text(`${rooms[i].name} - ${rooms[i].userCount} user${rooms[i].userCount > 1 ? 's' : ''}`);
         $roomSelector.append($option);
     }
 }
