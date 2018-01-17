@@ -41,7 +41,7 @@
     background: #e6eaee;
     display: flex;
     padding: 10px;
-    /*height: 60px;*/
+    height: 60px;
     flex-shrink: 0; }
     .chat__footer form {
       flex-grow: 1;
@@ -199,6 +199,8 @@ button {
   .form-field select {
     border: 1px solid #e1e1e1;
     padding: 10px; }
+  .form-field select > option:nth-of-type(1) {
+    color: #666; }
 
 .message {
   padding: 10px; }

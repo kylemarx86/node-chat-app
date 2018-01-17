@@ -59,7 +59,7 @@ socket.on('updateRoomsList', function(rooms) {
 
 /**
  * fills in the DOM element with names of rooms that are currently active
- * @param {array} rooms - array of objects that contain names of active chat rooms
+ * @param {array} rooms - array of objects that contain names of active chat rooms and number of users in them
  */
 function updateRoomList(rooms){
     var $roomSelector = $('select[name=room]');
@@ -67,7 +67,7 @@ function updateRoomList(rooms){
     var $option = $('<option>').attr('value', '').text('Select a created room');
     $roomSelector.append($option);
     for(var i = 0; i < rooms.length; i++){
-        var $option = $('<option>').attr('value', rooms[i].name).text(rooms[i].name);
+        var $option = $('<option>').attr('value', rooms[i].name).text(`${rooms[i].name} - ${rooms[i].userCount} users`);
         $roomSelector.append($option);
     }
 }
