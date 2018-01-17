@@ -19,6 +19,8 @@ function tabClicked($elt){
     if($elt.index() !== activeIndex){
         // identify panel of tab that was clicked
         var $panel = $elt.parent().parent().parent();
+        // make form element related to currently active tab disabled
+        $panel.find('.content:not(.hidden) .panel__input').prop('disabled', true);
         // unload content of currently active tab
         $panel.find('.content:not(.hidden)').addClass('hidden');
         // remove the class active from other tabs in descendents of the parent
@@ -27,6 +29,8 @@ function tabClicked($elt){
         $elt.toggleClass('active');
         // load in content associated with respective tab
         $panel.find('.content').eq($elt.index()).toggleClass('hidden');
+        // change disabled attr of content associated with respective tab
+        $panel.find('.content').eq($elt.index()).find('.panel__input').prop('disabled', false);
     }
 }
 
@@ -52,8 +56,13 @@ socket.on('updateRoomsList', function(rooms) {
     updateRoomList(roomsList);
 });
 
+
+/**
+ * fills in the DOM element with names of rooms that are currently active
+ * @param {array} rooms - array of objects that contain names of active chat rooms
+ */
 function updateRoomList(rooms){
-    var $roomSelector = $('select[name=rooms]');
+    var $roomSelector = $('select[name=room]');
     $roomSelector.empty();
     var $option = $('<option>').attr('value', '').text('Select a created room');
     $roomSelector.append($option);

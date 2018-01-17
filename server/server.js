@@ -36,42 +36,9 @@ io.on('connection', (socket) => {
     });
 
     socket.on('join', (params, callback) => {
-        // if( !isRealString(params.name) || !isRealString(params.room)){
-        //     return callback('Name and room name are required.');
-        // }
-        
-        // fail join if name parameter is missing
-        if( !isRealString(params.name) ){
+        if( !isRealString(params.name) || !isRealString(params.room)){
             return callback('Name and room name are required.');
         }
-
-        // if(params.room)
-        // check to see if both params are defined
-
-        // if only room param exists
-        // if rooms param is undefined then 
-
-        // fail join if both room and rooms parameters are empty
-        if( !isRealString(params.room) && !isRealString(params.rooms) ){
-            return callback('Name and room name are required.');
-        }
-
-        // room and rooms parameters can be different and prevent users from being in same room
-        // chose which parameter to use ROOM or ROOMS
-        if( isRealString(params.rooms) ){
-            params.room = params.rooms;
-            delete params.rooms;
-            
-
-            // construct a new query string and redirect to new page with amended query string
-            // get base url
-
-            // window.location.replace("http://");
-        }
-
-
-        // determine if the room or rooms param should be used
-            // get rid of other param
 
         socket.join(params.room);
 
