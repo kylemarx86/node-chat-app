@@ -1,0 +1,11 @@
+// $rbg1 and $rgb2 are arrays of rgb colors
+@mixin backgroundGradient($rgb1: 39 107 130, $rgb2: 49 84 129){
+    $color1: rgba(nth($rgb1, 1), nth($rgb1, 2), nth($rgb1, 3), 1);
+    $color2: rgba(nth($rgb2, 1), nth($rgb2, 2), nth($rgb2, 3), 1);
+    background: -moz-linear-gradient(125deg, $color1 0%, $color2 100%); /* ff3.6+ */
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, $color2), color-stop(100%, $color1)); /* safari4+,chrome */
+    background: -webkit-linear-gradient(125deg, $color1 0%, $color2 100%); /* safari5.1+,chrome10+ */
+    background: -o-linear-gradient(125deg, $color1 0%, $color2 100%); /* opera 11.10+ */
+    background: -ms-linear-gradient(125deg, $color1 0%, $color2 100%); /* ie10+ */
+    background: linear-gradient(325deg, $color1 0%, $color2 100%); /* w3c */
+}

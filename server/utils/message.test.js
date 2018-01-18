@@ -23,12 +23,10 @@ describe('generateLocationMessage', () => {
         var from = 'Henry VIII';
         var lat = '0';
         var long = '51.47879';
-        var url = `https://www.google.com/maps?q=${lat},${long}`
+        var url = `https://www.google.com/maps?q=${lat},${long}`;
         
         var locationMessage = generateLocationMessage(from, lat, long);
         expect(locationMessage).toInclude({from, url});
-        // expect(locationMessage.from).toBe(from);
-        // expect(locationMessage.url).toBe(url);
         expect(locationMessage.createdAt).toBeA('number');
     });
 });
