@@ -61,16 +61,17 @@
                 text-decoration: none;
                 color: #666;
                 transition: color .15s;
+                cursor: default;
             }
             &.active {
                 >a {
                     font-weight: bold;
                 }
             }
-            &:hover {
-                cursor: pointer;
+            &:hover:not(.active):not(.disabled) {
                 >a {
                     color: black;
+                    cursor: pointer;
                 }
             }
         }

@@ -108,13 +108,13 @@
         padding: 10px 12px;
         text-decoration: none;
         color: #666;
-        transition: color .15s; }
+        transition: color .15s;
+        cursor: default; }
       .panel .tabs__tab.active > a {
         font-weight: bold; }
-      .panel .tabs__tab:hover {
+      .panel .tabs__tab:hover:not(.active):not(.disabled) > a {
+        color: black;
         cursor: pointer; }
-        .panel .tabs__tab:hover > a {
-          color: black; }
     .panel .tabs__slider {
       position: absolute;
       bottom: 0;

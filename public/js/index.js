@@ -6,12 +6,15 @@ $(document).ready(function(){
 
 function enableClickHandlers(){
     $('.tabs__tab').click(function(){
-        tabClicked(this)
+        tabClicked(this);
     });
 }
 
+/**
+ * controls displaying of content as tabs are switched between
+ * @param {object} $elt - jQuery object representing the tab that was clicked
+ */
 function tabClicked($elt){
-    console.log('tab was clicked');
     $elt = $($elt);
     // capture index of currently active tab
     var activeIndex = $elt.parent().find('.active').index();
@@ -51,9 +54,20 @@ socket.on('connect', function() {
 socket.on('updateRoomsList', function(rooms) {
     var roomsList = JSON.parse(rooms);
     roomsList = roomsList.rooms;
-    console.log('rooms:', roomsList);
 
     updateRoomList(roomsList);
+
+    if(roomsList.length < 1 ){
+        // remove click handler if no rooms are present
+        $('.tabs__tab:nth-of-type(2)').off('click');
+        $('.tabs__tab:nth-of-type(2)').addClass('disabled');
+    } else {
+        // re-enable click handler if there are rooms present and the tab is currently disabled
+        $('.tabs__tab.disabled').click(function(){
+            tabClicked(this);
+        });
+        $('.tabs__tab.disabled').removeClass('disabled');
+    }
 });
 
 
